@@ -36,7 +36,7 @@ header span a {
 
 nav {
   background-color: var(--accent-color);
-  color: var(--text-color);
+  color: var(--primary-color);
   padding: 8px;
 }
 
