@@ -1,6 +1,175 @@
 /******* Change Box Model ***************/
+:root {
+  --primary-color: #0D0D0D; 
+  --secondary-color: #00A8E8; 
+  --text-color: #F2F2F2;
+  --accent-color: #FF4C29; 
+}
+
+
 *,
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+#wrapper {
+  padding: 0 30px;
+}
+
+header {
+  display: flex;
+  padding: 20px 0;
+  justify-content: space-between;
+}
+
+header a {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-size: 18px;
+}
+
+header span a {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+nav {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  padding: 8px;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  width: 70%;
+  margin: 0 auto;
+  list-style: none;
+}
+
+ul li {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.hero-section {
+  position: relative;
+  background: url("/images/vehicles/delorean.jpg") center/cover no-repeat;
+  height: 100vh;
+}
+
+.hero-section ul {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 15px;
+  width: 20%;
+  top: 20%;
+  list-style: none;
+}
+
+.hero-section ul li {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+.hero-section button {
+  margin-top: 20px;
+  background-color: var(--secondary-color);
+  padding: 15px;
+  font-size: 20px;
+  color: var(--primary-color);
+  border: none;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
+  margin-top: 40px;
+}
+
+.main section {
+  width: 40%;
+}
+
+.container {
+  margin-top: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.container img {
+  background-color: var(--secondary-color);
+  padding: 10px 80px;
+}
+
+section ul {
+  margin-top: 60px;
+}
+
+footer {
+  margin-top: 60px;
+}
+
+@media (max-width: 768px) {
+  #wrapper {
+    padding: 0 15px;
+  }
+
+  nav ul {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .hero-section {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 40vh;
+  }
+
+  .hero-section ul {
+    width: 70%;
+    top: 0;
+    font-size: 16px;
+  }
+
+  .hero-section button {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .main {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .main section {
+    width: 100%;
+  }
+
+  .container {
+    gap: 30px;
+  }
+
+  .container img {
+    width: 100%;
+    padding: 10px 50px;
+  }
+
+  ul li {
+    font-size: 18px;
+  }
+
+  header a {
+    font-size: 16px;
+  }
+
+  header span a {
+    font-size: 24px;
+  }
 }
