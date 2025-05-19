@@ -121,6 +121,19 @@ footer {
     padding: 0 15px;
   }
 
+@media screen and (max-width: 768px) {
+  .checkerboard-frame{
+    background: none;
+    padding: 0;
+  }
+
+  .car-highlight{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+}
+
   nav ul {
     width: 100%;
     gap: 10px;
