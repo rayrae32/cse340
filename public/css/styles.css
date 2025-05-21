@@ -1,4 +1,6 @@
 /******* Change Box Model ***************/
+@import url("https://fonts.googleapis.com/css2?family=Roboto&family=opensans&display`=swap");
+
 :root {
   --primary-color: #0D0D0D; 
   --secondary-color: #00A8E8; 
@@ -13,7 +15,16 @@
   box-sizing: border-box;
 }
 
+body {
+  background: url("/images/site/checkerboard.jpg") center/cover no-repeat;
+  padding: 40px 80px;
+  position: relative;
+}
+
 #wrapper {
+  background-color: white;
+  border: 8px solid var(--secondary-color);
+  border-radius: 15px;
   padding: 0 30px;
 }
 
@@ -64,7 +75,7 @@ ul li {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.4);
   padding: 15px;
-  width: 20%;
+  width: 40%;
   top: 20%;
   list-style: none;
 }
@@ -104,7 +115,7 @@ ul li {
 
 .container img {
   background-color: var(--secondary-color);
-  padding: 10px 80px;
+  padding: 10px 40px;
 }
 
 section ul {
@@ -116,7 +127,13 @@ footer {
 }
 
 @media (max-width: 768px) {
-  #wrapper {
+  body {
+  background: none;
+  padding: 0;
+}
+
+#wrapper {
+    border: none;
     padding: 0 15px;
   }
 
