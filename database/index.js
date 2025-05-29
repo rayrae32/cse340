@@ -1,10 +1,6 @@
 const { Pool } = require('pg');
 require('dotenv').config();
 
-/* ***************
- * Connection Pool
- * SSL required for Render.com
- *********************************/
 console.log('NODE_ENV:', process.env.NODE_ENV);
 console.log('DATABASE_URL:', process.env.DATABASE_URL);
 
@@ -43,7 +39,6 @@ connectWithRetry().catch(err => console.error('Failed to connect to database:', 
 
 const pool = new Pool(poolConfig);
 
-// Query method
 module.exports = {
   async query(text, params) {
     try {

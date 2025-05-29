@@ -1,0 +1,22 @@
+<div class="inventory-container">
+  <h1><%= title %></h1>
+  <% if (vehicles.length > 0) { %>
+    <ul class="vehicle-list">
+      <% vehicles.forEach(vehicle => { %>
+        <li>
+          <a href="/inv/detail/<%= vehicle.inv_id %>">
+            <h3><%= vehicle.inv_make %> <%= vehicle.inv_model %></h3>
+          </a>
+          <p>Year: <%= vehicle.inv_year %></p>
+          <p>Price: $<%= Number(vehicle.inv_price).toFixed(2) %></p>
+          <p>Miles: <%= vehicle.inv_miles.toLocaleString() %></p>
+          <p>Color: <%= vehicle.inv_color %></p>
+          <p><%= vehicle.inv_description %></p>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <p>No vehicles found for this classification.</p>
+  <% } %>
+  <p><a href="/" class="home-link">Return to Homepage</a></p>
+</div>

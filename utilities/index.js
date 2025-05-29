@@ -32,6 +32,32 @@ Util.getNav = async function () {
   }
 };
 
+Util.buildVehicleHTML = async function (vehicle) {
+  try {
+    if (!vehicle) return '<p>No vehicle found.</p>';
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    });
+    return `
+      <div class="vehicle-detail">
+        <img src="${vehicle.inv_image}" alt="${vehicle.inv_make} ${vehicle.inv_model}" class="vehicle-image">
+        <div class="vehicle-info">
+          <h2>${vehicle.inv_make} ${vehicle.inv_model}</h2>
+          <p><strong>Year:</strong> ${vehicle.inv_year}</p>
+          <p><strong>Price:</strong> ${formatter.format(Number(vehicle.inv_price))}</p>
+          <p><strong>Mileage:</strong> ${vehicle.inv_miles.toLocaleString()} miles</p>
+          <p><strong>Color:</strong> ${vehicle.inv_color}</p>
+          <p><strong>Description:</strong> ${vehicle.inv_description || 'No description available.'}</p>
+        </div>
+      </div>
+    `;
+  } catch (error) {
+    console.error('buildVehicleHTML error:', error);
+    return '<p>Error displaying vehicle details.</p>';
+  }
+};
+
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
 module.exports = Util;
