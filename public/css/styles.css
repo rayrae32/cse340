@@ -191,7 +191,6 @@ footer {
   }
 }
 
-/* Existing styles */
 .error-container, .home-container, .inventory-container, .vehicle-container {
   text-align: center;
   padding: 50px;
@@ -201,30 +200,11 @@ footer {
   font-size: 48px;
   color: #333;
 }
-.vehicle-list {
-  list-style: none;
-  padding: 0;
-}
-.vehicle-list li {
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  max-width: 600px;
-}
-.vehicle-list h3 {
-  margin: 0 0 10px;
-  color: #333;
-}
-.vehicle-list p {
-  margin: 5px 0;
-  color: #666;
-}
 .home-link {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
   text-decoration: none;
   border-radius: 5px;
 }
@@ -232,16 +212,62 @@ footer {
   background-color: #0056b3;
 }
 
+nav ul li {
+  margin: 0 15px;
+}
 nav ul li a {
   text-decoration: none;
   color: var(--text-color);
-  font-size: 16px;
 }
 nav ul li a:hover {
-  color: #007bff;
+  color: var(--secondary-color);
 }
 
-/* New styles for vehicle detail */
+/* Vehicle grid */
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.vehicle-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.vehicle-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.card-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.card-info {
+  padding: 10px;
+  text-align: center;
+}
+.card-info h3 {
+  font-size: 1.2em;
+  margin: 0.5em 0;
+  color: #333;
+}
+.card-info p {
+  font-size: 1em;
+  color: #007bff;
+  margin: 0;
+}
+
+/* Vehicle detail */
 .vehicle-detail {
   display: flex;
   flex-wrap: wrap;
@@ -269,12 +295,17 @@ nav ul li a:hover {
   font-size: 18px;
   margin: 10px 0;
 }
-.vehicle-info strong {
-  color: #333;
+.vehicle-info {
+  strong {
+    color: #333;
+  }
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
+  .vehicle-grid {
+    grid-template-columns: 1fr;
+  }
   .vehicle-detail {
     flex-direction: column;
     align-items: center;
