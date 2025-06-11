@@ -1,0 +1,25 @@
+<div class="management-container">
+  <h1>Inventory Management</h1>
+  <% if (typeof messages !== 'undefined' && (messages.error ||
+  messages.success)) { %>
+  <div class="flash-message">
+    <% if (messages.error) { %>
+    <ul class="error">
+      <% messages.error.forEach(msg => { %>
+      <li><%= msg %></li>
+      <% }) %>
+    </ul>
+    <% } %> <% if (messages.success) { %>
+    <ul class="success">
+      <% messages.success.forEach(msg => { %>
+      <li><%= msg %></li>
+      <% }) %>
+    </ul>
+    <% } %>
+  </div>
+  <% } %>
+  <div class="management-links">
+    <a href="/inv/add-classification">Add New Classification</a>
+    <a href="/inv/add-inventory">Add New Inventory</a>
+  </div>
+</div>

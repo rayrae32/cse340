@@ -45,4 +45,116 @@ invCont.buildVehicleDetail = async function (req, res, next) {
   }
 };
 
-module.exports = invCont;
+// Add the management and classification/inventory functions
+async function buildManagement(req, res, next) {
+  let nav = await utilities.getNav();
+  res.render('inventory/management', {
+    title: 'Inventory Management',
+    nav,
+    messages: req.flash()
+  });
+}
+
+async function buildAddClassification(req, res, next) {
+  let nav = await utilities.getNav();
+  res.render('inventory/add-classification', {
+    title: 'Add Classification',
+    nav,
+    errors: null,
+    messages: req.flash()
+  });
+}
+
+async function addClassification(req, res, next) {
+  let nav = await utilities.getNav();
+  const { classification_name } = req.body;
+  try {
+    const result = await invModel.addClassification(classification_name);
+    if (result) {
+      req.flash('success', 'Classification added successfully!');
+      res.render('inventory/management', {
+        title: 'Inventory Management',
+        nav,
+        messages: req.flash()
+      });
+    }
+  } catch (error) {
+    req.flash('error', 'Error adding classification. Try again.');
+    res.render('inventory/add-classification', {
+      title: 'Add Classification',
+      nav,
+      errors: null,
+      messages: req.flash()
+    });
+  }
+}
+
+async function buildAddInventory(req, res, next) {
+  let nav = await utilities.getNav();
+  let classificationList = await utilities.buildClassificationList();
+  res.render('inventory/add-inventory', {
+    title: 'Add Inventory',
+    nav,
+    classificationList,
+    errors: null,
+    messages: req.flash()
+  });
+}
+
+async function addInventory(req, res, next) {
+  let nav = await utilities.getNav();
+  let {
+    classification_id,
+    inv_make,
+    inv_model,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_year,
+    inv_miles,
+    inv_color
+  } = req.body;
+  try {
+    const result = await invModel.addInventory(
+      classification_id,
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color
+    );
+    if (result) {
+      req.flash('success', 'Inventory added successfully!');
+      res.render('inventory/management', {
+        title: 'Inventory Management',
+        nav,
+        messages: req.flash()
+      });
+    }
+  } catch (error) {
+    req.flash('error', 'Error adding inventory. Try again.');
+    res.render('inventory/add-inventory', {
+      title: 'Add Inventory',
+      nav,
+      classificationList: await utilities.buildClassificationList(),
+      errors: null,
+      messages: req.flash(),
+      ...req.body // Sticky fields
+    });
+  }
+}
+
+module.exports = {
+  buildByClassificationId: invCont.buildByClassificationId,
+  buildVehicleDetail: invCont.buildVehicleDetail,
+  buildManagement,
+  buildAddClassification,
+  addClassification,
+  buildAddInventory,
+  addInventory
+};
