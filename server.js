@@ -1,5 +1,5 @@
-const session = require("express-session")
-const pool = require('./database/')
+const session = require("express-session");
+const pool = require('./database/');
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 require('dotenv').config();
@@ -11,8 +11,8 @@ const errorController = require('./controllers/errorController');
 const accountRoute = require('./routes/accountRoute');
 const utilities = require('./utilities');
 const inventoryRoutes = require('./routes/inventoryRoute');
-
-
+const cookieParser = require("cookie-parser");
+const jwt = require('jsonwebtoken');
 
 /* ***********************
  * Middleware
@@ -27,14 +27,18 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   name: 'sessionId',
-}))
+}));
+app.use(cookieParser());
+// Remove custom JWT middleware
+// app.use((req, res, next) => { ... });
+app.use(utilities.checkJWTToken);
 
 // Express Messages Middleware
-app.use(require('connect-flash')())
-app.use(function(req, res, next){
+app.use(require('connect-flash')());
+app.use(function(req, res, next) {
   res.locals.messages = req.flash();
-  next()
-})
+  next();
+});
 
 /* View Engine */
 app.set('view engine', 'ejs');
@@ -45,12 +49,10 @@ app.set('layout', './layouts/layout');
 app.use(static);
 app.use('/account', accountRoute);
 app.get('/', utilities.handleErrors(baseController.buildHome));
-console.log('Homepage route hit');
 app.get('/inv/type/:classification_id', utilities.handleErrors(inventoryController.buildByClassificationId));
 app.get('/inv/detail/:inv_id', utilities.handleErrors(inventoryController.buildVehicleDetail));
 app.get('/error/test', utilities.handleErrors(errorController.triggerError));
 app.use('/inv', inventoryRoutes);
-
 
 // 404 Handler
 app.use(async (req, res, next) => {

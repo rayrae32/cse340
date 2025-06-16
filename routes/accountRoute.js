@@ -3,7 +3,9 @@ const router = express.Router();
 const utilities = require('../utilities');
 const accountController = require('../controllers/accountController');
 const regValidate = require('../utilities/account-validation');
+const { updateValidation, passwordValidation } = require('../middleware/validation'); // Adjust path
 
+router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildManagement));
 router.get('/login', utilities.handleErrors(accountController.buildLogin));
 router.get('/register', utilities.handleErrors(accountController.buildRegister));
 router.post(
@@ -12,16 +14,24 @@ router.post(
   regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount)
 );
-
-router.post('/login',
+router.post(
+  '/login',
   regValidate.loginRules(),
   regValidate.checkLoginData,
   utilities.handleErrors(accountController.loginAccount)
 );
-
-router.post('/register', (req, res) => {
-  req.flash('error', 'Registration failed: Please try again');
-  res.redirect('/account/register');
+router.get('/management', utilities.checkLogin, utilities.handleErrors(accountController.buildManagement));
+router.get('/update/:id', utilities.handleErrors(accountController.buildUpdate));
+router.post('/update', updateValidation, utilities.handleErrors(accountController.updateAccount));
+router.post('/update-password', passwordValidation, utilities.handleErrors(accountController.updatePassword));
+router.get('/logout', (req, res) => {
+  req.flash('notice', 'You have been logged out.');
+  req.session.destroy(err => {
+    if (err) console.error('Session destroy error:', err);
+    else console.log('Session destroyed');
+  });
+  res.clearCookie('jwt', { path: '/account', httpOnly: true });
+  res.redirect('/account/login');
 });
 
 module.exports = router;
