@@ -25,7 +25,7 @@ app.use(session({
   }),
   secret: process.env.SESSION_SECRET,
   resave: true,
-  saveUninitialized: true,
+  saveUninitialized: false,
   name: 'sessionId',
 }));
 app.use(cookieParser());
@@ -73,7 +73,8 @@ app.use(async (err, req, res, next) => {
   res.status(err.status || 500).render('errors/error', {
     title: err.status || 'Server Error',
     message,
-    nav
+    nav,
+    error: process.env.NODE_ENV === 'development' ? err : undefined
   });
 });
 

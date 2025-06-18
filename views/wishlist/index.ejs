@@ -1,0 +1,15 @@
+<main>
+  <h1>My Wishlist</h1>
+  <% if (locals.messages && locals.messages.success) { %>
+    <p class="success"><%= locals.messages.success %></p>
+  <% } %>
+  <% if (locals.messages && locals.messages.notice) { %>
+    <p class="notice"><%= locals.messages.notice %></p>
+  <% } %>
+  <%- wishlist %>
+  <p>Total: $<%= wishlistItems.reduce((sum, item) => sum + Number(item.inv_price), 0).toLocaleString() %></p>
+  <a href="/inv/type/1">Continue Shopping</a>
+  <form action="/account/wishlist/clear" method="post" style="display:inline;">
+    <button type="submit">Clear Wishlist</button>
+  </form>
+</main>

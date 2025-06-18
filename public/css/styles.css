@@ -1,3 +1,4 @@
+
 /******* Change Box Model ***************/
 @import url("https://fonts.googleapis.com/css2?family=Roboto&family=opensans&display`=swap");
 
@@ -723,4 +724,13 @@ label {
 input {
   width: 100%;
   padding: 5px;
+}
+
+#tools a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #333;
+}
+#tools a:hover {
+  color: #007bff;
 }

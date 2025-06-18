@@ -3,7 +3,8 @@ const router = express.Router();
 const utilities = require('../utilities');
 const accountController = require('../controllers/accountController');
 const regValidate = require('../utilities/account-validation');
-const { updateValidation, passwordValidation } = require('../middleware/validation'); // Adjust path
+const { updateValidation, passwordValidation } = require('../middleware/validation');
+const wishlistController = require('../controllers/wishlistController');
 
 router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildManagement));
 router.get('/login', utilities.handleErrors(accountController.buildLogin));
@@ -33,5 +34,10 @@ router.get('/logout', (req, res) => {
   res.clearCookie('jwt', { path: '/account', httpOnly: true });
   res.redirect('/account/login');
 });
+
+router.get('/wishlist', utilities.checkLogin, utilities.handleErrors(wishlistController.buildWishlist));
+router.post('/wishlist/add', utilities.checkLogin, utilities.handleErrors(wishlistController.addToWishlist));
+router.post('/wishlist/remove/:inv_id', utilities.checkLogin, utilities.handleErrors(wishlistController.removeFromWishlist));
+router.post('/wishlist/clear', utilities.checkLogin, utilities.handleErrors(wishlistController.clearWishlist));
 
 module.exports = router;
